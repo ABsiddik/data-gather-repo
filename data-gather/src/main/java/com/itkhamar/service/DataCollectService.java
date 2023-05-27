@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.itkhamar.config.FileUploadRoute;
 import com.itkhamar.config.HotelApiWebClient;
 import com.itkhamar.config.WeatherApiWebClient;
 import com.itkhamar.dto.AddressInfo;
@@ -39,6 +40,7 @@ public class DataCollectService {
     private final HotelApiWebClient hotelApiWebClient;
     private final WeatherApiWebClient weatherApiWebClient;
     private final XmlConverter xmlConverter;
+    private final FileUploadRoute fileUploadRoute;
 
     @Async
     public void collectData(List<AddressInfo> addressInfos){
@@ -56,6 +58,8 @@ public class DataCollectService {
 
             xmlConverter.convertToXml(mock);
         }
+
+        fileUploadRoute.executeRoute();
     }
 
     public List<HotelInfo> findHotelData(String city){
@@ -105,7 +109,6 @@ public class DataCollectService {
         List<HotelInfo> hotelInfos = new ArrayList<>();
         try {
             ObjectMapper mapper = new ObjectMapper();
-//            File resource = ResourceUtils.getFile("classpath:holet-data.json");
 
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             JsonNode weatherInfo = mapper.readValue(content, JsonNode.class);

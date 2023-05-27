@@ -1,6 +1,7 @@
 package com.itkhamar.service;
 
 import com.itkhamar.config.FetchFileRoute;
+import com.itkhamar.config.FileUploadRoute;
 import com.itkhamar.dto.HotelInfo;
 import com.itkhamar.dto.MockInfo;
 import com.itkhamar.utils.XmlConverter;
@@ -19,23 +20,16 @@ public class DataProcessService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataProcessService.class);
 
     private final FetchFileRoute fetchFileRoute;
-//    private final DataCollectService dataCollectService;
-//    private final XmlConverter xmlConverter;
 
 
     @Scheduled(initialDelay = 10000, fixedDelay = 1000 * 60 * 10)
     public void processData(){
 
-        LOGGER.info("Process started at {}", new Date());
+        LOGGER.info("Process is started at {}", new Date());
         try {
-
             fetchFileRoute.executeRoute();
-//            dataCollectService.findHotelData("New York");
-//            dataCollectService.findWeatherData("New York");
-//            List<HotelInfo> hotelInfos = dataCollectService.convertToHotelInfos(null);
-//            MockInfo info = new MockInfo();
-//            info.setHotelInfos(hotelInfos);
-//            xmlConverter.convertToXml(info);
+
+            LOGGER.info("Process is successfully completed at {}", new Date());
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
