@@ -21,8 +21,17 @@ public class DataProcessService {
 
     private final FetchFileRoute fetchFileRoute;
 
+    /**
+     * cron fire at 12:00 PM (noon) every day
+     * initially fire after 10 seconds of Boot Application
+     */
+//    @Scheduled(initialDelay = 1000 * 10, cron = "0 0 12 * * ?")
 
-    @Scheduled(initialDelay = 10000, fixedDelay = 1000 * 60 * 10)
+    /**
+     * cron fire at every 6 hours period every day
+     * initially fire after 10 seconds of Boot Application
+     */
+    @Scheduled(initialDelay = 1000 * 10, cron = "0 0 0/6 * * ?")
     public void processData(){
 
         LOGGER.info("Process is started at {}", new Date());
